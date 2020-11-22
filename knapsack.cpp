@@ -1,6 +1,7 @@
+// 0-1 kanpsack problem
+
 #include <iostream>
 #include <vector>
-#include <cassert>
 #include <fstream>
 #include <string>
 #include <sstream>
