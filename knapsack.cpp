@@ -139,13 +139,13 @@ int main() {
   std::cout << "by naive method, maximum value = " << res << '\n';
   
 
-  // dp with memorization version
+  // dp with top-down version
   knapsack_dp dp;
   int res1 = dp.run(value, weight, capacity, num, sid);
   std::cout << "by dp top-down method , maximum value = " << res1 << '\n';
   
 
-  // dp with memorization version
+  // dp with bottom-up version
   knapsack_dp_bottomup dp_bottomup;
   int res2 = dp_bottomup.run(value, weight, capacity, num);
   std::cout << "by dp bottom-up method , maximum value = " << res2 << '\n';
