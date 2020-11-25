@@ -92,50 +92,13 @@ private:
 
 
 
-class tsp_dp {
-public:
-  tsp_dp(const std::vector<std::vector<int>> distance) : _distance(distance) {
-    for(int i = 0; i < _distance.size(); ++i)
-      _visited.push_back(false);
-    _num_visited = 1;
-  }
-  
-  int run(const int& start_city) {
-    int res = std::numeric_limits<int>::max();
-    
-    _visited[start_city] = true;
-
-    for(int i = 0; i < _distance.size(); ++i) {
-      if(_visited[i] == false) {
-        _visited[i] = true;
-        ++_num_visited;
-        std::cout << "i = " << i << " , _num_visited = " << _num_visited << " , res = " << res << '\n';
-        if(_num_visited == _distance.size())
-          res = min(res, _distance[start_city][0]);
-        else
-          res = min(res, run(i) + _distance[start_city][i]);
-        _visited[i] = false;
-        --_num_visited;
-      }
-    }
-
-    return res;
-  }
-
-private:
-  std::vector<bool> _visited;
-  int _num_visited;
-  std::vector<std::vector<int>> _distance;
-};
-
-
-
 int main() {
   std::vector<int> temp;
 
   int cities = 0;
+  
   // read in benchmark
-  std::ifstream benchmark("./tsp_benchmark_1.txt");
+  std::ifstream benchmark("./tsp_benchmark.txt");
   if(benchmark.is_open()) {
     std::string line;
     std::string v;
@@ -167,25 +130,15 @@ int main() {
   end = std::chrono::steady_clock::now();
   std::cout << "naive method for tsp got result = " << res << " in " \
             << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << " ns.\n";
-  
-  /*
-  start = std::chrono::steady_clock::now();
-  int start_city = 0;
-  tsp_dp dp(distance);
-  int res1 = dp.run(start_city); 
-  end = std::chrono::steady_clock::now();
-  std::cout << "dp method for tsp got result = " << res1 << " in " \
-            << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << " ns.\n";
-  */
-
+    
   
   start = std::chrono::steady_clock::now();
   int start_city = 0;
   int bitmask = 1;
   tsp_dp_bitmask dp_bitmask(distance);
-  int res2 = dp_bitmask.run(bitmask, start_city); 
+  int res1 = dp_bitmask.run(bitmask, start_city1); 
   end = std::chrono::steady_clock::now();
-  std::cout << "dp method with bitmask for tsp got result = " << res2 << " in " \
+  std::cout << "dp method with bitmask for tsp got result = " << res1 << " in " \
             << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << " ns.\n";
   
   return 0;
