@@ -136,7 +136,7 @@ int main() {
   int start_city = 0;
   int bitmask = 1;
   tsp_dp_bitmask dp_bitmask(distance);
-  int res1 = dp_bitmask.run(bitmask, start_city1); 
+  int res1 = dp_bitmask.run(bitmask, start_city); 
   end = std::chrono::steady_clock::now();
   std::cout << "dp method with bitmask for tsp got result = " << res1 << " in " \
             << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << " ns.\n";
