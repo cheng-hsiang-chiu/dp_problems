@@ -110,7 +110,7 @@ int main() {
   int sid = 0;
 
   // read in benchmark
-  std::ifstream benchmark("./knapsack_benchmark.txt");
+  std::ifstream benchmark("./knapsack_benchmark_1.txt");
   if (benchmark.is_open()) {
     std::string line;
     std::string v;
