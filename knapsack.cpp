@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <chrono>
+
 
 
 int max(int a, int b) {  
@@ -132,23 +134,37 @@ int main() {
   for (int i = temp.size()/2; i < temp.size()-1; ++i)  
     weight.push_back(temp[i]);
 
+ 
+
+  std::chrono::steady_clock::time_point start;
+  std::chrono::steady_clock::time_point end;
+
+
   
   // recursive version
+  start = std::chrono::steady_clock::now();
   knapsack_recursive recursive;
   int res = recursive.run(value, weight, capacity, num, sid);
-  std::cout << "by naive method, maximum value = " << res << '\n';
+  end = std::chrono::steady_clock::now();
+  std::cout << "by naive method, maximum value = " << res \
+            << " in " << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << " ns\n";
   
 
   // dp with top-down version
+  start = std::chrono::steady_clock::now();
   knapsack_dp dp;
   int res1 = dp.run(value, weight, capacity, num, sid);
-  std::cout << "by dp top-down method , maximum value = " << res1 << '\n';
-  
+  end = std::chrono::steady_clock::now();
+  std::cout << "by dp top-down method , maximum value = " << res1 \
+            << " in " << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << " ns\n";
 
   // dp with bottom-up version
+  start = std::chrono::steady_clock::now();
   knapsack_dp_bottomup dp_bottomup;
   int res2 = dp_bottomup.run(value, weight, capacity, num);
-  std::cout << "by dp bottom-up method , maximum value = " << res2 << '\n';
+  end = std::chrono::steady_clock::now();
+  std::cout << "by dp bottom-up method , maximum value = " << res2 \
+            << " in " << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << " ns\n";
   
   return 0;
 }
